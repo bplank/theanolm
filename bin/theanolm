@@ -69,10 +69,11 @@ def main():
             sys.exit(2)
 #        except ContextNotDefined as e:
         except Exception as e:
-            print('Theano returned error "' + str(e) + '". You need to map the '
-                  'device contexts that are used in the architecture file to '
-                  'CUDA devices (e.g. '
-                  'THEANO_FLAGS=contexts=dev0->cuda0;dev1->cuda1).')
+            print('Theano returned error "'+str(e)+'"')
+#            print('Theano returned error "' + str(e) + '". You need to map the '
+#                  'device contexts that are used in the architecture file to '
+#                  'CUDA devices (e.g. '
+#                  'THEANO_FLAGS=contexts=dev0->cuda0;dev1->cuda1).')
             sys.exit(2)
         except TheanoConfigurationError as e:
             print('There is a problem with Theano configuration. Please check '

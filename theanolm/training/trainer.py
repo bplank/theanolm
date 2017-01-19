@@ -11,6 +11,9 @@ from theanolm import ShufflingBatchIterator, LinearBatchIterator
 from theanolm.exceptions import IncompatibleStateError, NumberError
 from theanolm.training.stoppers import create_stopper
 
+# hacky, to remove later
+from shutil import copyfile
+
 class Trainer(object):
     """Training Process
     
@@ -63,6 +66,7 @@ class Trainer(object):
         logging.debug("One epoch of training data contains %d mini-batch updates.",
                       self._updates_per_epoch)
         self.class_prior_probs = class_counts / class_counts.sum()
+
         logging.debug("Class unigram probabilities are in the range [%.8f, "
                       "%.8f].",
                       self.class_prior_probs.min(),
@@ -452,6 +456,11 @@ class Trainer(object):
         else:
             self._candidate_index = self._cost_history.size - 1
 
+        # quick hack to save model (copy)
+        if self._options["store_model_each_epoch"]: 
+            cpy_name=self._candidate_state.filename + "_" + str(self.epoch_number)
+            copyfile(self._candidate_state.filename, cpy_name)
+            
         self._candidate_state.flush()
         logging.info("New candidate for optimal state saved to %s.",
                      self._candidate_state.filename)

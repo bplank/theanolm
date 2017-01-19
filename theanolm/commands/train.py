@@ -178,6 +178,9 @@ def add_arguments(parser):
         help='print statistics of every Nth mini-batch update; quiet if less '
              'than one (default 1000)')
     argument_group.add_argument(
+        '--store-model-each-epoch', action="store_true",
+        help='store the model after each epoch')
+    argument_group.add_argument(
         '--debug', action="store_true",
         help='use test values to get better error messages from Theano')
     argument_group.add_argument(
@@ -270,7 +273,8 @@ def train(args):
             'stopping_criterion': args.stopping_criterion,
             'max_epochs': args.max_epochs,
             'min_epochs': args.min_epochs,
-            'max_annealing_count': args.max_annealing_count
+            'max_annealing_count': args.max_annealing_count,
+            'store_model_each_epoch': args.store_model_each_epoch
         }
         logging.debug("TRAINING OPTIONS")
         for option_name, option_value in training_options.items():
