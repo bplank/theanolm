@@ -5,7 +5,7 @@ from traceback import format_tb
 import logging
 import sys
 import argparse
-from theano.gpuarray.type import ContextNotDefined
+#from theano.gpuarray.type import ContextNotDefined
 from theanolm.commands import *
 from theanolm.exceptions import *
 
@@ -67,7 +67,8 @@ def main():
                   'this happens during inference, there is probably something '
                   'wrong in the model. The error message was: ' + str(e))
             sys.exit(2)
-        except ContextNotDefined as e:
+#        except ContextNotDefined as e:
+        except Exception as e:
             print('Theano returned error "' + str(e) + '". You need to map the '
                   'device contexts that are used in the architecture file to '
                   'CUDA devices (e.g. '
